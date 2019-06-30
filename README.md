@@ -1,0 +1,1 @@
+[![Build Status](https://travis-ci.com/d1skort/pure-fp-datastructures.svg?branch=master)](https://travis-ci.com/d1skort/pure-fp-datastructures)
