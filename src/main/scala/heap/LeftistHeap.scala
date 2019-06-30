@@ -17,13 +17,13 @@ object LeftistHeap {
 
   def getLeft[A](heap: LeftistHeap[A]): LeftistHeap[A] =
     heap match {
-      case Empty => empty
+      case Empty                            => empty
       case Branch(value, left, right, rank) => left
     }
 
   def getRight[A](heap: LeftistHeap[A]): LeftistHeap[A] =
     heap match {
-      case Empty => empty
+      case Empty                            => empty
       case Branch(value, left, right, rank) => right
     }
 
@@ -53,6 +53,19 @@ object LeftistHeap {
       make(value, right, left)
     }
 
+  def bubbleUp[A: Order](
+      x: A,
+      left: LeftistHeap[A],
+      right: LeftistHeap[A]
+  ): LeftistHeap[A] =
+    (left, right) match {
+      case (_, Branch(y, yl, yr, _)) if (x > y) =>
+        make(y, left, make(x, yl, yr))
+      case (Branch(z, zl, zr, _), _) if (x > z) =>
+        make(z, make(x, zl, zr), right)
+      case _ => make(x, left, right)
+    }
+
   def merge[A: Order](x: LeftistHeap[A], y: LeftistHeap[A]): LeftistHeap[A] =
     (x, y) match {
       case (Empty, _) => y
@@ -66,7 +79,15 @@ object LeftistHeap {
     }
 
   def insert[A: Order](value: A, heap: LeftistHeap[A]): LeftistHeap[A] =
-    merge(make(value, empty, empty), heap)
+    heap match {
+      case Empty => make(value, empty, empty)
+      case Branch(min, left, right, _) =>
+        if (rank(left) >= rank(right)) {
+          bubbleUp(min, left, insert(value, right))
+        } else {
+          bubbleUp(min, insert(value, left), right)
+        }
+    }
 
   def findMin[A](heap: LeftistHeap[A]): Option[A] =
     heap match {
@@ -77,12 +98,12 @@ object LeftistHeap {
   def deleteMin[A: Order](heap: LeftistHeap[A]): LeftistHeap[A] =
     heap match {
       case Branch(_, left, right, _) => merge(left, right)
-      case Empty => heap
+      case Empty                     => heap
     }
 
   def fromList[A: Order](list: List[A]): LeftistHeap[A] =
     list match {
-      case Nil => empty
+      case Nil      => empty
       case x :: Nil => make(x, empty, empty)
       case _ =>
         val middle = list.length / 2
