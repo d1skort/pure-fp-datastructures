@@ -1,6 +1,6 @@
 name := "pure-fp-datastructures"
 
-scalaVersion := "2.12.8"
+scalaVersion := "2.12.9"
 
 scalacOptions += "-Ypartial-unification"
 
