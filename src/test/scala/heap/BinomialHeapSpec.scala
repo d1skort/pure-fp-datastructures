@@ -2,8 +2,8 @@ import BinomialHeap._
 import cats.instances.int._
 import cats.syntax.option._
 import org.scalatest.FlatSpec
-import org.scalatest.prop.Checkers
 import org.scalatest.OptionValues._
+import org.scalatestplus.scalacheck.Checkers
 import org.scalacheck.{Prop, Gen}
 
 class BinomialHeapSpec extends FlatSpec with Checkers {

@@ -1,8 +1,10 @@
 name := "pure-fp-datastructures"
 
-scalaVersion := "2.12.8"
+scalaVersion := "2.13.0"
 
-scalacOptions += "-Ypartial-unification"
+scalacOptions ++= Seq(
+    "-deprecation"
+)
 
 val catsVersion = "2.0.0-M4"
 val scalaTestVersion = "3.0.8"

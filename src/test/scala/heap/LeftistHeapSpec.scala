@@ -3,7 +3,7 @@ import cats.instances.int._
 import cats.syntax.option._
 import org.scalatest.FlatSpec
 import org.scalatest.OptionValues._
-import org.scalatest.prop.Checkers
+import org.scalatestplus.scalacheck.Checkers
 import org.scalacheck.{Prop, Gen}
 
 class LeftistHeapSpec extends FlatSpec with Checkers {
