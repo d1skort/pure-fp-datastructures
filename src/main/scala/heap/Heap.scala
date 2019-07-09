@@ -23,6 +23,8 @@ trait Heap[H[_]] {
 }
 
 object Heap {
+  def apply[H[_]](implicit ev: Heap[H]): Heap[H] = ev
+
   object syntax {
     implicit final class HeapOps[H[_], A: Order](heap: H[A])(
         implicit ev: Heap[H]
