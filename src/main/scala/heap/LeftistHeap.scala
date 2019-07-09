@@ -101,13 +101,22 @@ object LeftistHeap {
       case Empty                     => heap
     }
 
-  def fromList[A: Order](list: List[A]): LeftistHeap[A] =
-    list match {
-      case Nil      => empty
-      case x :: Nil => make(x, empty, empty)
-      case _ =>
-        val middle = list.length / 2
-        val (left, right) = list.splitAt(middle)
-        merge(fromList(left), fromList(right))
-    }
+  implicit val leftistHeapInstance: Heap[LeftistHeap] = new Heap[LeftistHeap] {
+    def empty[A]: LeftistHeap[A] = LeftistHeap.empty
+
+    def deleteMin[A: Order](heap: LeftistHeap[A]): LeftistHeap[A] =
+      LeftistHeap.deleteMin(heap)
+
+    def findMin[A: Order](heap: LeftistHeap[A]): Option[A] =
+      LeftistHeap.findMin(heap)
+
+    def insert[A: Order](value: A, heap: LeftistHeap[A]): LeftistHeap[A] =
+      LeftistHeap.insert(value, heap)
+
+    def merge[A: Order](
+        heap1: LeftistHeap[A],
+        heap2: LeftistHeap[A]
+    ): LeftistHeap[A] =
+      LeftistHeap.merge(heap1, heap2)
+  }
 }

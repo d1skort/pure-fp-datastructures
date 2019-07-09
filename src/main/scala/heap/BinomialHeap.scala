@@ -91,13 +91,23 @@ object BinomialHeap {
           .getOrElse(heap)
     }
 
-  def fromList[A: Order](list: List[A]): BinomialHeap[A] =
-    list match {
-      case Nil      => BinomialHeap(Nil)
-      case x :: Nil => insert(x, empty)
-      case _ =>
-        val middle = list.length / 2
-        val (left, right) = list.splitAt(middle)
-        merge(fromList(left), fromList(right))
+  implicit val binomialHeapInstance: Heap[BinomialHeap] =
+    new Heap[BinomialHeap] {
+      def deleteMin[A: Order](heap: BinomialHeap[A]): BinomialHeap[A] =
+        BinomialHeap.deleteMin(heap)
+
+      def empty[A]: BinomialHeap[A] = BinomialHeap.empty
+
+      def findMin[A: Order](heap: BinomialHeap[A]): Option[A] =
+        BinomialHeap.findMin(heap)
+
+      def insert[A: Order](value: A, heap: BinomialHeap[A]): BinomialHeap[A] =
+        BinomialHeap.insert(value, heap)
+
+      def merge[A: Order](
+          heap1: BinomialHeap[A],
+          heap2: BinomialHeap[A]
+      ): BinomialHeap[A] =
+        BinomialHeap.merge(heap1, heap2)
     }
 }

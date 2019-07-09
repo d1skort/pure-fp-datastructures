@@ -5,8 +5,8 @@ import BinomialHeap.{
   insert => innerInsert,
   merge => innerMerge,
   deleteMin => innerDelete,
-  findMin => innerFindMin,
-  fromList => innerFromList
+  findMin => innerFindMin
+  // fromList => innerFromList
 }
 
 final case class ExplicitMinBinomialHeap[A](
@@ -50,8 +50,8 @@ object ExplicitMinBinomialHeap {
     ExplicitMinBinomialHeap(innerFindMin(newHeap), newHeap)
   }
 
-  def fromList[A: Order](list: List[A]): ExplicitMinBinomialHeap[A] = {
-    val heap = innerFromList(list)
-    ExplicitMinBinomialHeap(innerFindMin(heap), heap)
-  }
+  // def fromList[A: Order](list: List[A]): ExplicitMinBinomialHeap[A] = {
+  //   val heap = innerFromList(list)
+  //   ExplicitMinBinomialHeap(innerFindMin(heap), heap)
+  // }
 }

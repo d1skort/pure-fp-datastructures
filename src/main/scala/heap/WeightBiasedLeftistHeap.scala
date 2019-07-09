@@ -76,16 +76,6 @@ object WeightBiasedLeftistHeap {
   ): WeightBiasedLeftistHeap[A] =
     merge(make(value, empty, empty), heap)
 
-  def fromList[A: Order](list: List[A]): WeightBiasedLeftistHeap[A] =
-    list match {
-      case Nil      => empty
-      case x :: Nil => make(x, empty, empty)
-      case _ =>
-        val middle = list.length / 2
-        val (left, right) = list.splitAt(middle)
-        merge(fromList(left), fromList(right))
-    }
-
   def findMin[A](heap: WeightBiasedLeftistHeap[A]): Option[A] =
     heap match {
       case Empty                  => none
@@ -98,5 +88,30 @@ object WeightBiasedLeftistHeap {
     heap match {
       case Empty                     => heap
       case Branch(_, left, right, _) => merge(left, right)
+    }
+
+  implicit val weightBiasedHeapInstance: Heap[WeightBiasedLeftistHeap] =
+    new Heap[WeightBiasedLeftistHeap] {
+      def deleteMin[A: Order](
+          heap: WeightBiasedLeftistHeap[A]
+      ): WeightBiasedLeftistHeap[A] =
+        WeightBiasedLeftistHeap.deleteMin(heap)
+
+      def empty[A]: WeightBiasedLeftistHeap[A] = WeightBiasedLeftistHeap.empty
+
+      def findMin[A: Order](heap: WeightBiasedLeftistHeap[A]): Option[A] =
+        WeightBiasedLeftistHeap.findMin(heap)
+
+      def insert[A: Order](
+          value: A,
+          heap: WeightBiasedLeftistHeap[A]
+      ): WeightBiasedLeftistHeap[A] =
+        WeightBiasedLeftistHeap.insert(value, heap)
+
+      def merge[A: Order](
+          heap1: WeightBiasedLeftistHeap[A],
+          heap2: WeightBiasedLeftistHeap[A]
+      ): WeightBiasedLeftistHeap[A] =
+        WeightBiasedLeftistHeap.merge(heap1, heap2)
     }
 }
