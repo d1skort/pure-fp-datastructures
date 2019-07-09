@@ -98,6 +98,9 @@ object BinomialHeap {
 
       def empty[A]: BinomialHeap[A] = BinomialHeap.empty
 
+      def isEmpty[A](heap: BinomialHeap[A]): Boolean =
+        heap.tree.isEmpty
+
       def findMin[A: Order](heap: BinomialHeap[A]): Option[A] =
         BinomialHeap.findMin(heap)
 

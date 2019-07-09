@@ -3,6 +3,8 @@ import cats.Order
 trait Heap[H[_]] {
   def empty[A]: H[A]
 
+  def isEmpty[A](heap: H[A]): Boolean
+
   def merge[A: Order](heap1: H[A], heap2: H[A]): H[A]
 
   def findMin[A: Order](heap: H[A]): Option[A]
@@ -36,6 +38,10 @@ object Heap {
       def deleteMin: H[A] = ev.deleteMin(heap)
 
       def insert(value: A): H[A] = ev.insert(value, heap)
+    }
+
+    implicit final class HeapOps2[H[_], A](heap: H[A])(implicit ev: Heap[H]) {
+      def isEmpty: Boolean = ev.isEmpty(heap)
     }
   }
 }

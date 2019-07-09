@@ -40,5 +40,8 @@ object ExplicitMinHeap {
     }
 
     def empty[A]: ExplicitMinHeap[H, A] = ExplicitMinHeap(none, Heap[H].empty)
+
+    def isEmpty[A](heap: ExplicitMinHeap[H, A]): Boolean =
+      heap.innerHeap.isEmpty
   }
 }

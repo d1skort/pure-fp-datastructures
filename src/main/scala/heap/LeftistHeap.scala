@@ -104,6 +104,12 @@ object LeftistHeap {
   implicit val leftistHeapInstance: Heap[LeftistHeap] = new Heap[LeftistHeap] {
     def empty[A]: LeftistHeap[A] = LeftistHeap.empty
 
+    def isEmpty[A](heap: LeftistHeap[A]): Boolean =
+      heap match {
+        case Empty              => true
+        case Branch(_, _, _, _) => false
+      }
+
     def deleteMin[A: Order](heap: LeftistHeap[A]): LeftistHeap[A] =
       LeftistHeap.deleteMin(heap)
 

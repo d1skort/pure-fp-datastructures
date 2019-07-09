@@ -1,6 +1,8 @@
 import cats.Order
 import cats.syntax.option._
 import cats.syntax.order._
+import WeightBiasedLeftistHeap.Empty
+import WeightBiasedLeftistHeap.Branch
 
 sealed trait WeightBiasedLeftistHeap[+A] extends Product with Serializable
 object WeightBiasedLeftistHeap {
@@ -98,6 +100,12 @@ object WeightBiasedLeftistHeap {
         WeightBiasedLeftistHeap.deleteMin(heap)
 
       def empty[A]: WeightBiasedLeftistHeap[A] = WeightBiasedLeftistHeap.empty
+
+      def isEmpty[A](heap: WeightBiasedLeftistHeap[A]): Boolean =
+        heap match {
+          case Empty              => true
+          case Branch(_, _, _, _) => false
+        }
 
       def findMin[A: Order](heap: WeightBiasedLeftistHeap[A]): Option[A] =
         WeightBiasedLeftistHeap.findMin(heap)
