@@ -1,7 +1,7 @@
 import Heap.syntax._
 import cats.instances.int._
 import org.scalatestplus.scalacheck.Checkers
-import org.scalacheck.{Prop, Gen}
+import org.scalacheck.{ Prop, Gen }
 import org.scalatest.WordSpec
 import org.scalatest.OptionValues._
 
@@ -14,7 +14,7 @@ class HeapSpec extends WordSpec with Checkers {
     })
 
   def testInsertNewItem[H[_]: Heap] =
-    check(Prop.forAll { list: List[Int] => 
+    check(Prop.forAll { list: List[Int] =>
       val heap = Heap[H].fromList(list.filter(_ >= 0))
       heap.insert(-1).findMin.value === -1
     })

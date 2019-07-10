@@ -6,12 +6,8 @@ import LeftistHeap.Empty
 
 sealed trait LeftistHeap[+A] extends Product with Serializable
 object LeftistHeap {
-  final case class Branch[A](
-      value: A,
-      left: LeftistHeap[A],
-      right: LeftistHeap[A],
-      rank: Int
-  ) extends LeftistHeap[A]
+  final case class Branch[A](value: A, left: LeftistHeap[A], right: LeftistHeap[A], rank: Int)
+      extends LeftistHeap[A]
 
   final case object Empty extends LeftistHeap[Nothing]
 
@@ -35,29 +31,17 @@ object LeftistHeap {
       case Branch(_, _, _, rank) => rank
     }
 
-  def make[A](
-      value: A,
-      left: LeftistHeap[A],
-      right: LeftistHeap[A]
-  ): LeftistHeap[A] =
+  def make[A](value: A, left: LeftistHeap[A], right: LeftistHeap[A]): LeftistHeap[A] =
     Branch(value, left, right, rank(right) + 1)
 
-  def makeAndSwap[A](
-      value: A,
-      left: LeftistHeap[A],
-      right: LeftistHeap[A]
-  ): LeftistHeap[A] =
+  def makeAndSwap[A](value: A, left: LeftistHeap[A], right: LeftistHeap[A]): LeftistHeap[A] =
     if (rank(left) >= rank(right)) {
       make(value, left, right)
     } else {
       make(value, right, left)
     }
 
-  def bubbleUp[A: Order](
-      x: A,
-      left: LeftistHeap[A],
-      right: LeftistHeap[A]
-  ): LeftistHeap[A] =
+  def bubbleUp[A: Order](x: A, left: LeftistHeap[A], right: LeftistHeap[A]): LeftistHeap[A] =
     (left, right) match {
       case (_, Branch(y, yl, yr, _)) if (x > y) =>
         make(y, left, make(x, yl, yr))
@@ -119,10 +103,7 @@ object LeftistHeap {
     def insert[A: Order](value: A, heap: LeftistHeap[A]): LeftistHeap[A] =
       LeftistHeap.insert(value, heap)
 
-    def merge[A: Order](
-        heap1: LeftistHeap[A],
-        heap2: LeftistHeap[A]
-    ): LeftistHeap[A] =
+    def merge[A: Order](heap1: LeftistHeap[A], heap2: LeftistHeap[A]): LeftistHeap[A] =
       LeftistHeap.merge(heap1, heap2)
   }
 }
