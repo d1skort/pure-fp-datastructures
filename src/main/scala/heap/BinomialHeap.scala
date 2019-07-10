@@ -34,10 +34,7 @@ object BinomialHeap {
   def insert[A: Order](value: A, heap: BinomialHeap[A]): BinomialHeap[A] =
     insTree(Node(0, value, Nil), heap)
 
-  def merge[A: Order](
-      heap1: BinomialHeap[A],
-      heap2: BinomialHeap[A]
-  ): BinomialHeap[A] =
+  def merge[A: Order](heap1: BinomialHeap[A], heap2: BinomialHeap[A]): BinomialHeap[A] =
     (heap1.tree, heap2.tree) match {
       case (xs, Nil) => BinomialHeap(xs)
       case (Nil, ys) => BinomialHeap(ys)
@@ -49,9 +46,7 @@ object BinomialHeap {
         insTree(link(x, y), merge(BinomialHeap(xs), BinomialHeap(ys)))
     }
 
-  def removeMinTree[A: Order](
-      heap: BinomialHeap[A]
-  ): Option[(Node[A], BinomialHeap[A])] =
+  def removeMinTree[A: Order](heap: BinomialHeap[A]): Option[(Node[A], BinomialHeap[A])] =
     heap.tree match {
       case Nil      => none
       case x :: Nil => (x, BinomialHeap(List.empty[Node[A]])).some
@@ -107,10 +102,7 @@ object BinomialHeap {
       def insert[A: Order](value: A, heap: BinomialHeap[A]): BinomialHeap[A] =
         BinomialHeap.insert(value, heap)
 
-      def merge[A: Order](
-          heap1: BinomialHeap[A],
-          heap2: BinomialHeap[A]
-      ): BinomialHeap[A] =
+      def merge[A: Order](heap1: BinomialHeap[A], heap2: BinomialHeap[A]): BinomialHeap[A] =
         BinomialHeap.merge(heap1, heap2)
     }
 }

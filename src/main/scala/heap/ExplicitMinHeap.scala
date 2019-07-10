@@ -13,35 +13,27 @@ object ExplicitMinHeap {
       case _                                  => a.orElse(b)
     }
 
-  implicit def explicitMinHeapInstance[H[_]: Heap]
-      : Heap[ExplicitMinHeap[H, ?]] = new Heap[ExplicitMinHeap[H, ?]] {
-    def findMin[A: Order](heap: ExplicitMinHeap[H, A]): Option[A] = heap.min
+  implicit def explicitMinHeapInstance[H[_]: Heap]: Heap[ExplicitMinHeap[H, ?]] =
+    new Heap[ExplicitMinHeap[H, ?]] {
+      def findMin[A: Order](heap: ExplicitMinHeap[H, A]): Option[A] = heap.min
 
-    def insert[A: Order](
-        value: A,
-        heap: ExplicitMinHeap[H, A]
-    ): ExplicitMinHeap[H, A] =
-      ExplicitMinHeap(min(value.some, heap.min), heap.innerHeap.insert(value))
+      def insert[A: Order](value: A, heap: ExplicitMinHeap[H, A]): ExplicitMinHeap[H, A] =
+        ExplicitMinHeap(min(value.some, heap.min), heap.innerHeap.insert(value))
 
-    def merge[A: Order](
+      def merge[A: Order](
         heap1: ExplicitMinHeap[H, A],
         heap2: ExplicitMinHeap[H, A]
-    ): ExplicitMinHeap[H, A] =
-      ExplicitMinHeap(
-        min(heap1.min, heap2.min),
-        heap1.innerHeap.merge(heap2.innerHeap)
-      )
+      ): ExplicitMinHeap[H, A] =
+        ExplicitMinHeap(min(heap1.min, heap2.min), heap1.innerHeap.merge(heap2.innerHeap))
 
-    def deleteMin[A: Order](
-        heap: ExplicitMinHeap[H, A]
-    ): ExplicitMinHeap[H, A] = {
-      val newHeap = heap.innerHeap.deleteMin
-      ExplicitMinHeap(newHeap.findMin, newHeap)
+      def deleteMin[A: Order](heap: ExplicitMinHeap[H, A]): ExplicitMinHeap[H, A] = {
+        val newHeap = heap.innerHeap.deleteMin
+        ExplicitMinHeap(newHeap.findMin, newHeap)
+      }
+
+      def empty[A]: ExplicitMinHeap[H, A] = ExplicitMinHeap(none, Heap[H].empty)
+
+      def isEmpty[A](heap: ExplicitMinHeap[H, A]): Boolean =
+        heap.innerHeap.isEmpty
     }
-
-    def empty[A]: ExplicitMinHeap[H, A] = ExplicitMinHeap(none, Heap[H].empty)
-
-    def isEmpty[A](heap: ExplicitMinHeap[H, A]): Boolean =
-      heap.innerHeap.isEmpty
-  }
 }
