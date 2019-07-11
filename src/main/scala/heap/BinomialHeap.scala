@@ -61,18 +61,8 @@ object BinomialHeap {
         }
     }
 
-  def findMin[A: Order](heap: BinomialHeap[A]): Option[A] = {
-    @tailrec
-    def go(rest: List[Node[A]], currentMin: Option[A]): Option[A] =
-      rest match {
-        case Nil => currentMin
-        case x :: xs if currentMin.exists(_ < x.value) =>
-          go(xs, currentMin)
-        case x :: xs =>
-          go(xs, x.value.some)
-      }
-    go(heap.tree, none)
-  }
+  def findMin[A: Order](heap: BinomialHeap[A]): Option[A] =
+    heap.tree.map(_.value).minOption(Order[A].toOrdering)
 
   def deleteMin[A: Order](heap: BinomialHeap[A]): BinomialHeap[A] =
     heap.tree match {
