@@ -28,17 +28,15 @@ object Heap {
   def apply[H[_]](implicit ev: Heap[H]): Heap[H] = ev
 
   object syntax {
-    implicit final class HeapOps[H[_], A: Order](heap: H[A])(implicit ev: Heap[H]) {
-      def merge(that: H[A]): H[A] = ev.merge(heap, that)
+    implicit final class HeapOps[H[_], A](heap: H[A])(implicit ev: Heap[H]) {
+      def merge(that: H[A])(implicit order: Order[A]): H[A] = ev.merge(heap, that)
 
-      def findMin: Option[A] = ev.findMin(heap)
+      def findMin(implicit order: Order[A]): Option[A] = ev.findMin(heap)
 
-      def deleteMin: H[A] = ev.deleteMin(heap)
+      def deleteMin(implicit order: Order[A]): H[A] = ev.deleteMin(heap)
 
-      def insert(value: A): H[A] = ev.insert(value, heap)
-    }
+      def insert(value: A)(implicit order: Order[A]): H[A] = ev.insert(value, heap)
 
-    implicit final class HeapOps2[H[_], A](heap: H[A])(implicit ev: Heap[H]) {
       def isEmpty: Boolean = ev.isEmpty(heap)
     }
   }
