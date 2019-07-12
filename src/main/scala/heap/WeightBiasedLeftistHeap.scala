@@ -1,17 +1,16 @@
+package heap
+
 import cats.Order
 import cats.syntax.option._
 import cats.syntax.order._
-import WeightBiasedLeftistHeap.Empty
-import WeightBiasedLeftistHeap.Branch
 
 sealed trait WeightBiasedLeftistHeap[+A] extends Product with Serializable
 object WeightBiasedLeftistHeap {
-  final case class Branch[A](
-    value: A,
-    left: WeightBiasedLeftistHeap[A],
-    right: WeightBiasedLeftistHeap[A],
-    size: Long
-  ) extends WeightBiasedLeftistHeap[A]
+  final case class Branch[A](value: A,
+                             left: WeightBiasedLeftistHeap[A],
+                             right: WeightBiasedLeftistHeap[A],
+                             size: Long)
+      extends WeightBiasedLeftistHeap[A]
 
   final case object Empty extends WeightBiasedLeftistHeap[Nothing]
 
@@ -34,17 +33,13 @@ object WeightBiasedLeftistHeap {
 
   def empty[A]: WeightBiasedLeftistHeap[A] = Empty
 
-  def make[A](
-    value: A,
-    left: WeightBiasedLeftistHeap[A],
-    right: WeightBiasedLeftistHeap[A]
-  ): WeightBiasedLeftistHeap[A] =
+  def make[A](value: A,
+              left: WeightBiasedLeftistHeap[A],
+              right: WeightBiasedLeftistHeap[A]): WeightBiasedLeftistHeap[A] =
     Branch(value, left, right, size(left) + size(right) + 1)
 
-  def merge[A: Order](
-    x: WeightBiasedLeftistHeap[A],
-    y: WeightBiasedLeftistHeap[A]
-  ): WeightBiasedLeftistHeap[A] =
+  def merge[A: Order](x: WeightBiasedLeftistHeap[A],
+                      y: WeightBiasedLeftistHeap[A]): WeightBiasedLeftistHeap[A] =
     (x, y) match {
       case (_, Empty) => x
       case (Empty, _) => y
@@ -104,10 +99,8 @@ object WeightBiasedLeftistHeap {
       def insert[A: Order](value: A, heap: WeightBiasedLeftistHeap[A]): WeightBiasedLeftistHeap[A] =
         WeightBiasedLeftistHeap.insert(value, heap)
 
-      def merge[A: Order](
-        heap1: WeightBiasedLeftistHeap[A],
-        heap2: WeightBiasedLeftistHeap[A]
-      ): WeightBiasedLeftistHeap[A] =
+      def merge[A: Order](heap1: WeightBiasedLeftistHeap[A],
+                          heap2: WeightBiasedLeftistHeap[A]): WeightBiasedLeftistHeap[A] =
         WeightBiasedLeftistHeap.merge(heap1, heap2)
     }
 }
