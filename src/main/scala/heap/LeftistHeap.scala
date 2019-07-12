@@ -1,8 +1,8 @@
+package heap
+
 import cats.Order
 import cats.syntax.order._
 import cats.syntax.option._
-import LeftistHeap.Branch
-import LeftistHeap.Empty
 
 sealed trait LeftistHeap[+A] extends Product with Serializable
 object LeftistHeap {

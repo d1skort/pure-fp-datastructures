@@ -1,3 +1,5 @@
+package heap
+
 import cats.Order
 
 trait Heap[H[_]] {

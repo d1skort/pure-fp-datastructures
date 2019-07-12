@@ -1,9 +1,11 @@
-import Heap.syntax._
+package heap
+
 import cats.instances.int._
-import org.scalatestplus.scalacheck.Checkers
-import org.scalacheck.{ Prop, Gen }
-import org.scalatest.WordSpec
+import heap.Heap.syntax._
+import org.scalacheck.Prop
 import org.scalatest.OptionValues._
+import org.scalatest.WordSpec
+import org.scalatestplus.scalacheck.Checkers
 
 class HeapSpec extends WordSpec with Checkers {
 

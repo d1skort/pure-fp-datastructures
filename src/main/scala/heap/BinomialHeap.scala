@@ -1,3 +1,5 @@
+package heap
+
 import cats.Order
 import cats.syntax.order._
 import cats.syntax.option._

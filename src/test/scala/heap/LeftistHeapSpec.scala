@@ -1,7 +1,9 @@
+package heap
+
 import cats.instances.int._
+import org.scalacheck.Prop
 import org.scalatest.FlatSpec
 import org.scalatestplus.scalacheck.Checkers
-import org.scalacheck.{ Prop, Gen }
 
 class LeftistHeapSpec extends FlatSpec with Checkers {
   it should "not violates leftist property" in {
