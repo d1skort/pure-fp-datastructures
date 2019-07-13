@@ -2,6 +2,7 @@ package tree
 
 import cats.Order
 import cats.syntax.order._
+import tree.RedBlackTree.Color.{ Black, Red }
 
 import scala.annotation.tailrec
 
@@ -20,11 +21,22 @@ object RedBlackTree {
   def balance[A](color: Color,
                  left: RedBlackTree[A],
                  root: A,
-                 right: RedBlackTree[A]): RedBlackTree[A] = ???
+                 right: RedBlackTree[A]): RedBlackTree[A] =
+    (color, left, root, right) match {
+      case (Black, Branch(Red, Branch(Red, a, x, b), y, c), z, d) =>
+        Branch(Red, Branch(Black, a, x, b), y, Branch(Black, c, z, d))
+      case (Black, Branch(Red, a, x, Branch(Red, b, y, c)), z, d) =>
+        Branch(Red, Branch(Black, a, x, b), y, Branch(Black, c, z, d))
+      case (Black, a, x, Branch(Red, b, y, Branch(Red, c, z, d))) =>
+        Branch(Red, Branch(Black, a, x, b), y, Branch(Black, c, z, d))
+      case (Black, a, x, Branch(Red, Branch(Red, b, y, c), z, d)) =>
+        Branch(Red, Branch(Black, a, x, b), y, Branch(Black, c, z, d))
+      case _ => Branch(color, left, root, right)
+    }
 
   def ins[A: Order](value: A, tree: RedBlackTree[A]): RedBlackTree[A] =
     tree match {
-      case Empty => Branch(Color.Red, Empty, value, Empty)
+      case Empty => Branch(Red, Empty, value, Empty)
       case Branch(color, left, root, right) if value < root =>
         balance(color, ins(value, left), root, right)
       case Branch(color, left, root, right) if value > root =>
