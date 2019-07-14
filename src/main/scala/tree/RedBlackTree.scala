@@ -19,15 +19,23 @@ object RedBlackTree {
       extends RedBlackTree[A]
   final case object Empty extends RedBlackTree[Nothing]
 
-  def balance[A](color: Color,
-                 left: RedBlackTree[A],
-                 root: A,
-                 right: RedBlackTree[A]): RedBlackTree[A] =
+  def balanceLeft[A](color: Color,
+                     left: RedBlackTree[A],
+                     root: A,
+                     right: RedBlackTree[A]): RedBlackTree[A] =
     (color, left, root, right) match {
       case (Black, Branch(Red, Branch(Red, a, x, b), y, c), z, d) =>
         Branch(Red, Branch(Black, a, x, b), y, Branch(Black, c, z, d))
       case (Black, Branch(Red, a, x, Branch(Red, b, y, c)), z, d) =>
         Branch(Red, Branch(Black, a, x, b), y, Branch(Black, c, z, d))
+      case _ => Branch(color, left, root, right)
+    }
+
+  def balanceRight[A](color: Color,
+                      left: RedBlackTree[A],
+                      root: A,
+                      right: RedBlackTree[A]): RedBlackTree[A] =
+    (color, left, root, right) match {
       case (Black, a, x, Branch(Red, b, y, Branch(Red, c, z, d))) =>
         Branch(Red, Branch(Black, a, x, b), y, Branch(Black, c, z, d))
       case (Black, a, x, Branch(Red, Branch(Red, b, y, c), z, d)) =>
@@ -39,9 +47,9 @@ object RedBlackTree {
     tree match {
       case Empty => Branch(Red, Empty, value, Empty)
       case Branch(color, left, root, right) if value < root =>
-        balance(color, ins(value, left), root, right)
+        balanceLeft(color, ins(value, left), root, right)
       case Branch(color, left, root, right) if value > root =>
-        balance(color, left, root, ins(value, right))
+        balanceRight(color, left, root, ins(value, right))
       case _ => tree
     }
 
