@@ -2,6 +2,7 @@ package tree
 
 import cats.Order
 import cats.syntax.order._
+import cats.syntax.option._
 import tree.RedBlackTree.Color.{ Black, Red }
 
 import scala.annotation.tailrec
@@ -52,13 +53,17 @@ object RedBlackTree {
       Branch(Color.Black, left, y, right)
     }
 
-    @tailrec
-    def member[A: Order](a: A, t: RedBlackTree[A]): Boolean =
-      t match {
-        case Empty                                   => false
-        case Branch(_, left, value, _) if a < value  => member(a, left)
-        case Branch(_, _, value, right) if a > value => member(a, right)
-        case _                                       => true
-      }
+    def member[A: Order](a: A, t: RedBlackTree[A]): Boolean = {
+      @tailrec
+      def go(t: RedBlackTree[A], acc: Option[A]): Boolean =
+        t match {
+          case Branch(_, left, root, _) if a < root => go(left, acc)
+          case Branch(_, _, root, right)            => go(right, root.some)
+          case Empty                                => acc.contains(a)
+        }
+
+      go(t, none)
+    }
+
   }
 }
