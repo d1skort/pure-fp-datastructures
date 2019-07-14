@@ -58,7 +58,7 @@ object RedBlackTree {
 
     def insert[A: Order](a: A, t: RedBlackTree[A]): RedBlackTree[A] = {
       val Branch(_, left, y, right) = ins(a, t)
-      Branch(Color.Black, left, y, right)
+      Branch(Black, left, y, right)
     }
 
     def member[A: Order](a: A, t: RedBlackTree[A]): Boolean = {
