@@ -17,6 +17,8 @@ object BatchedQueue {
       case (Nil, _) =>
         val mid = r.length / 2
         BatchedQueue(r.drop(mid).reverse, r.take(mid))
+      case (_ :: Nil, Nil) =>
+        BatchedQueue(f, r)
       case (_, Nil) =>
         val mid = f.length / 2
         BatchedQueue(f.take(mid), f.drop(mid).reverse)
