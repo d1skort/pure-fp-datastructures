@@ -7,9 +7,9 @@ final case class BatchedQueue[A](f: List[A], r: List[A])
 object BatchedQueue {
 
   def check[A](f: List[A], r: List[A]): BatchedQueue[A] =
-    (f, r) match {
-      case (Nil, _) => BatchedQueue(r.reverse, Nil)
-      case _        => BatchedQueue(f, r)
+    f match {
+      case Nil => BatchedQueue(r.reverse, Nil)
+      case _   => BatchedQueue(f, r)
     }
 
   implicit val batchedQueue: Queue[BatchedQueue] = new Queue[BatchedQueue] {
