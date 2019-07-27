@@ -28,6 +28,11 @@ class HeapSpec extends WordSpec with Checkers {
       heap.deleteMin.findMin === list.filterNot(_ == currentMin).minOption
     })
 
+  def testSortViaHeap[H[_]: Heap] =
+    check(Prop.forAll { list: List[Int] =>
+      Heap.sort(list) === list.sorted
+    })
+
   "heap" when {
     "findMin" should {
       "return correct min for LeftistHeap" in {
@@ -39,6 +44,9 @@ class HeapSpec extends WordSpec with Checkers {
       "return correct min for BinomialHeap" in {
         testFindMin[BinomialHeap]
       }
+      "return correct min for SplayHeap" in {
+        testFindMin[SplayHeap]
+      }
       "return correct min for ExplicitMinHeap for LeftistHeap" in {
         testFindMin[ExplicitMinHeap[LeftistHeap, ?]]
       }
@@ -47,6 +55,9 @@ class HeapSpec extends WordSpec with Checkers {
       }
       "return correct min for ExplicitMinHeap for BinomialHeap" in {
         testFindMin[ExplicitMinHeap[BinomialHeap, ?]]
+      }
+      "return correct min for ExplicitMinHeap for SplayHeap" in {
+        testFindMin[ExplicitMinHeap[SplayHeap, ?]]
       }
     }
 
@@ -60,6 +71,9 @@ class HeapSpec extends WordSpec with Checkers {
       "correct insert new item for BinomialHeap" in {
         testInsertNewItem[BinomialHeap]
       }
+      "correct insert new item for SplayHeap" in {
+        testInsertNewItem[SplayHeap]
+      }
       "correct insert new item for ExplicitMinHeap for LeftistHeap" in {
         testInsertNewItem[ExplicitMinHeap[LeftistHeap, ?]]
       }
@@ -68,6 +82,9 @@ class HeapSpec extends WordSpec with Checkers {
       }
       "correct insert new item for ExplicitMinHeap for BinomialHeap" in {
         testInsertNewItem[ExplicitMinHeap[BinomialHeap, ?]]
+      }
+      "correct insert new item for ExplicitMinHeap for SplayHeap" in {
+        testInsertNewItem[ExplicitMinHeap[SplayHeap, ?]]
       }
     }
 
@@ -81,6 +98,9 @@ class HeapSpec extends WordSpec with Checkers {
       "correct delete min for BinomialHeap" in {
         testDeleteMin[BinomialHeap]
       }
+      "correct delete min for SplayHeap" in {
+        testDeleteMin[SplayHeap]
+      }
       "correct delete min for ExplicitMinHeap for LeftistHeap" in {
         testDeleteMin[ExplicitMinHeap[LeftistHeap, ?]]
       }
@@ -89,6 +109,36 @@ class HeapSpec extends WordSpec with Checkers {
       }
       "correct delete min for ExplicitMinHeap for BinomialHeap" in {
         testDeleteMin[ExplicitMinHeap[BinomialHeap, ?]]
+      }
+      "correct delete min for ExplicitMinHeap for SplayHeap" in {
+        testDeleteMin[ExplicitMinHeap[SplayHeap, ?]]
+      }
+    }
+
+    "sort" should {
+      "correct sort for LeftistHeap" in {
+        testSortViaHeap[LeftistHeap]
+      }
+      "correct sort via WeightBiasedLeftistHeap" in {
+        testSortViaHeap[WeightBiasedLeftistHeap]
+      }
+      "correct sort via BinomialHeap" in {
+        testSortViaHeap[BinomialHeap]
+      }
+      "correct sort via SplayHeap" in {
+        testSortViaHeap[SplayHeap]
+      }
+      "correct sort via ExplicitMinHeap for LeftistHeap" in {
+        testSortViaHeap[ExplicitMinHeap[LeftistHeap, ?]]
+      }
+      "correct sort via ExplicitMinHeap for WeightBiasedLeftistHeap" in {
+        testSortViaHeap[ExplicitMinHeap[WeightBiasedLeftistHeap, ?]]
+      }
+      "correct sort via ExplicitMinHeap for BinomialHeap" in {
+        testSortViaHeap[ExplicitMinHeap[BinomialHeap, ?]]
+      }
+      "correct sort via ExplicitMinHeap for SplayHeap" in {
+        testSortViaHeap[ExplicitMinHeap[SplayHeap, ?]]
       }
     }
   }

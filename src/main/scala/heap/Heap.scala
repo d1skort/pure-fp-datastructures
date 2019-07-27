@@ -2,6 +2,8 @@ package heap
 
 import cats.Order
 
+import scala.annotation.tailrec
+
 trait Heap[H[_]] {
   def empty[A]: H[A]
 
@@ -41,5 +43,18 @@ object Heap {
 
       def isEmpty: Boolean = ev.isEmpty(heap)
     }
+  }
+
+  def sort[H[_]: Heap, A: Order](list: List[A]): List[A] = {
+    import syntax._
+
+    @tailrec
+    def go(heap: H[A], res: List[A]): List[A] =
+      heap.findMin match {
+        case Some(minValue) => go(heap.deleteMin, minValue :: res)
+        case None           => res
+      }
+
+    go(Heap[H].fromList(list), Nil).reverse
   }
 }
