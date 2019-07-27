@@ -28,6 +28,11 @@ class HeapSpec extends WordSpec with Checkers {
       heap.deleteMin.findMin === list.filterNot(_ == currentMin).minOption
     })
 
+  def testSortViaHeap[H[_]: Heap] =
+    check(Prop.forAll { list: List[Int] =>
+      Heap.sort(list) === list.sorted
+    })
+
   "heap" when {
     "findMin" should {
       "return correct min for LeftistHeap" in {
@@ -107,6 +112,33 @@ class HeapSpec extends WordSpec with Checkers {
       }
       "correct delete min for ExplicitMinHeap for SplayHeap" in {
         testDeleteMin[ExplicitMinHeap[SplayHeap, ?]]
+      }
+    }
+
+    "sort" should {
+      "correct sort for LeftistHeap" in {
+        testSortViaHeap[LeftistHeap]
+      }
+      "correct sort via WeightBiasedLeftistHeap" in {
+        testSortViaHeap[WeightBiasedLeftistHeap]
+      }
+      "correct sort via BinomialHeap" in {
+        testSortViaHeap[BinomialHeap]
+      }
+      "correct sort via SplayHeap" in {
+        testSortViaHeap[SplayHeap]
+      }
+      "correct sort via ExplicitMinHeap for LeftistHeap" in {
+        testSortViaHeap[ExplicitMinHeap[LeftistHeap, ?]]
+      }
+      "correct sort via ExplicitMinHeap for WeightBiasedLeftistHeap" in {
+        testSortViaHeap[ExplicitMinHeap[WeightBiasedLeftistHeap, ?]]
+      }
+      "correct sort via ExplicitMinHeap for BinomialHeap" in {
+        testSortViaHeap[ExplicitMinHeap[BinomialHeap, ?]]
+      }
+      "correct sort via ExplicitMinHeap for SplayHeap" in {
+        testSortViaHeap[ExplicitMinHeap[SplayHeap, ?]]
       }
     }
   }
