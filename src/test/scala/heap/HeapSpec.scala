@@ -39,6 +39,9 @@ class HeapSpec extends WordSpec with Checkers {
       "return correct min for BinomialHeap" in {
         testFindMin[BinomialHeap]
       }
+      "return correct min for SplayHeap" in {
+        testFindMin[SplayHeap]
+      }
       "return correct min for ExplicitMinHeap for LeftistHeap" in {
         testFindMin[ExplicitMinHeap[LeftistHeap, ?]]
       }
@@ -47,6 +50,9 @@ class HeapSpec extends WordSpec with Checkers {
       }
       "return correct min for ExplicitMinHeap for BinomialHeap" in {
         testFindMin[ExplicitMinHeap[BinomialHeap, ?]]
+      }
+      "return correct min for ExplicitMinHeap for SplayHeap" in {
+        testFindMin[ExplicitMinHeap[SplayHeap, ?]]
       }
     }
 
@@ -60,6 +66,9 @@ class HeapSpec extends WordSpec with Checkers {
       "correct insert new item for BinomialHeap" in {
         testInsertNewItem[BinomialHeap]
       }
+      "correct insert new item for SplayHeap" in {
+        testInsertNewItem[SplayHeap]
+      }
       "correct insert new item for ExplicitMinHeap for LeftistHeap" in {
         testInsertNewItem[ExplicitMinHeap[LeftistHeap, ?]]
       }
@@ -68,6 +77,9 @@ class HeapSpec extends WordSpec with Checkers {
       }
       "correct insert new item for ExplicitMinHeap for BinomialHeap" in {
         testInsertNewItem[ExplicitMinHeap[BinomialHeap, ?]]
+      }
+      "correct insert new item for ExplicitMinHeap for SplayHeap" in {
+        testInsertNewItem[ExplicitMinHeap[SplayHeap, ?]]
       }
     }
 
@@ -81,6 +93,9 @@ class HeapSpec extends WordSpec with Checkers {
       "correct delete min for BinomialHeap" in {
         testDeleteMin[BinomialHeap]
       }
+      "correct delete min for SplayHeap" in {
+        testDeleteMin[SplayHeap]
+      }
       "correct delete min for ExplicitMinHeap for LeftistHeap" in {
         testDeleteMin[ExplicitMinHeap[LeftistHeap, ?]]
       }
@@ -89,6 +104,9 @@ class HeapSpec extends WordSpec with Checkers {
       }
       "correct delete min for ExplicitMinHeap for BinomialHeap" in {
         testDeleteMin[ExplicitMinHeap[BinomialHeap, ?]]
+      }
+      "correct delete min for ExplicitMinHeap for SplayHeap" in {
+        testDeleteMin[ExplicitMinHeap[SplayHeap, ?]]
       }
     }
   }
