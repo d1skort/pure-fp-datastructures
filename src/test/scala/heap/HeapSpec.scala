@@ -30,7 +30,7 @@ class HeapSpec extends WordSpec with Checkers {
 
   def testSortViaHeap[H[_]: Heap] =
     check(Prop.forAll { list: List[Int] =>
-      Heap.sort(list) === list.sorted
+      Heap[H].fromList(list).toSortedList === list.sorted
     })
 
   "heap" when {
