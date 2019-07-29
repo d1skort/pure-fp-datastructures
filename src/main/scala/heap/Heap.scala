@@ -17,15 +17,16 @@ trait Heap[H[_]] {
 
   def insert[A: Order](value: A, heap: H[A]): H[A]
 
-  def fromList[A: Order](list: List[A]): H[A] =
-    list match {
-      case Nil      => empty
-      case x :: Nil => insert(x, empty)
-      case _ =>
-        val middle = list.length / 2
-        val (left, right) = list.splitAt(middle)
-        merge(fromList(left), fromList(right))
-    }
+  def fromList[A: Order](list: List[A]): H[A] = {
+    @tailrec
+    def go(heap: H[A], rest: List[A]): H[A] =
+      rest match {
+        case Nil     => heap
+        case x :: xs => go(insert(x, heap), xs)
+      }
+
+    go(empty, list)
+  }
 
   def toSortedList[A: Order](heap: H[A]): List[A] = {
     @tailrec

@@ -66,7 +66,7 @@ object LeftistHeap {
     heap match {
       case Empty => make(value, empty, empty)
       case Branch(min, left, right, _) =>
-        if (rank(left) >= rank(right)) {
+        if (rank(left) > rank(right)) {
           bubbleUp(min, left, insert(value, right))
         } else {
           bubbleUp(min, insert(value, left), right)
