@@ -26,6 +26,17 @@ trait Heap[H[_]] {
         val (left, right) = list.splitAt(middle)
         merge(fromList(left), fromList(right))
     }
+
+  def toSortedList[A: Order](heap: H[A]): List[A] = {
+    @tailrec
+    def go(heap: H[A], res: List[A]): List[A] =
+      findMin(heap) match {
+        case None        => res
+        case Some(value) => go(deleteMin(heap), value :: res)
+      }
+
+    go(heap, Nil).reverse
+  }
 }
 
 object Heap {
@@ -42,19 +53,8 @@ object Heap {
       def insert(value: A)(implicit order: Order[A]): H[A] = ev.insert(value, heap)
 
       def isEmpty: Boolean = ev.isEmpty(heap)
+
+      def toSortedList(implicit order: Order[A]): List[A] = ev.toSortedList(heap)
     }
-  }
-
-  def sort[H[_]: Heap, A: Order](list: List[A]): List[A] = {
-    import syntax._
-
-    @tailrec
-    def go(heap: H[A], res: List[A]): List[A] =
-      heap.findMin match {
-        case Some(minValue) => go(heap.deleteMin, minValue :: res)
-        case None           => res
-      }
-
-    go(Heap[H].fromList(list), Nil).reverse
   }
 }
