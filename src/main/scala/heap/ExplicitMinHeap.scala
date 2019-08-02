@@ -15,8 +15,8 @@ object ExplicitMinHeap {
       case _                                => a.orElse(b)
     }
 
-  implicit def explicitMinHeapInstance[H[_]: Heap]: Heap[ExplicitMinHeap[H, ?]] =
-    new Heap[ExplicitMinHeap[H, ?]] {
+  implicit def explicitMinHeapInstance[H[_]: Heap]: Heap[ExplicitMinHeap[H, *]] =
+    new Heap[ExplicitMinHeap[H, *]] {
       def findMin[A: Order](heap: ExplicitMinHeap[H, A]): Option[A] = heap.min
 
       def insert[A: Order](value: A, heap: ExplicitMinHeap[H, A]): ExplicitMinHeap[H, A] =
