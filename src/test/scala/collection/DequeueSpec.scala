@@ -1,6 +1,6 @@
 package collection
 
-import collection.Dequeue.syntax._
+import collection.syntax._
 import org.scalacheck.Prop
 import org.scalatest.{ Matchers, WordSpec }
 import org.scalatestplus.scalacheck.Checkers
@@ -15,7 +15,7 @@ class DequeueSpec extends WordSpec with Matchers with Checkers {
         case (d, i) =>
           d.snoc(i)
       }
-      Queue.getAllItems(dequeue) === list
+      Queue.toList(dequeue) === list
     })
 
   def testSupportLIFO[D[_]: Dequeue] =
@@ -24,7 +24,7 @@ class DequeueSpec extends WordSpec with Matchers with Checkers {
         case (d, i) =>
           d.cons(i)
       }
-      Queue.getAllItems(dequeue) === list.reverse
+      Queue.toList(dequeue) === list.reverse
     })
 
   def testRemoveFirstElement[D[_]: Dequeue] =
@@ -37,7 +37,7 @@ class DequeueSpec extends WordSpec with Matchers with Checkers {
       } else {
         Some(list.tail)
       }
-      dequeue.tail.map(d => Queue.getAllItems(d)) === listTail
+      dequeue.tail.map(d => Queue.toList(d)) === listTail
     })
 
   def testRemoveLastElement[D[_]: Dequeue] =
@@ -50,7 +50,7 @@ class DequeueSpec extends WordSpec with Matchers with Checkers {
       } else {
         Some(list.init)
       }
-      dequeue.init.map(d => Queue.getAllItems(d)) === listInit
+      dequeue.init.map(d => Queue.toList(d)) === listInit
     })
 
   "dequeue" when {
