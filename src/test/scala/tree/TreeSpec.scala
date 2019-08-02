@@ -1,7 +1,7 @@
 package tree
 
 import cats.instances.int._
-import tree.Tree.syntax._
+import tree.syntax._
 import org.scalacheck.Prop
 import org.scalatest.WordSpec
 import org.scalatestplus.scalacheck.Checkers
