@@ -3,7 +3,7 @@ package heap
 import cats.Order
 import cats.syntax.option._
 import cats.syntax.order._
-import heap.Heap.syntax._
+import heap.syntax._
 
 final case class ExplicitMinHeap[H[_], A](min: Option[A], innerHeap: H[A])
 
