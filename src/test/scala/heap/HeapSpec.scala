@@ -1,7 +1,7 @@
 package heap
 
 import cats.instances.int._
-import heap.Heap.syntax._
+import heap.syntax._
 import org.scalacheck.Prop
 import org.scalatest.OptionValues._
 import org.scalatest.WordSpec

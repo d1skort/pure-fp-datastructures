@@ -3,7 +3,7 @@ package heap
 import cats.Order
 import cats.syntax.option._
 import cats.syntax.order._
-import heap.Heap.syntax._
+import heap.syntax._
 
 final case class ExplicitMinHeap[H[_], A](min: Option[A], innerHeap: H[A])
 
@@ -15,8 +15,8 @@ object ExplicitMinHeap {
       case _                                => a.orElse(b)
     }
 
-  implicit def explicitMinHeapInstance[H[_]: Heap]: Heap[ExplicitMinHeap[H, ?]] =
-    new Heap[ExplicitMinHeap[H, ?]] {
+  implicit def explicitMinHeapInstance[H[_]: Heap]: Heap[ExplicitMinHeap[H, *]] =
+    new Heap[ExplicitMinHeap[H, *]] {
       def findMin[A: Order](heap: ExplicitMinHeap[H, A]): Option[A] = heap.min
 
       def insert[A: Order](value: A, heap: ExplicitMinHeap[H, A]): ExplicitMinHeap[H, A] =

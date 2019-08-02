@@ -1,6 +1,7 @@
 package collection
 
 import scala.annotation.tailrec
+import collection.syntax._
 
 trait Queue[Q[_]] {
   def empty[A]: Q[A]
@@ -13,18 +14,7 @@ trait Queue[Q[_]] {
 object Queue {
   def apply[Q[_]](implicit ev: Queue[Q]): Queue[Q] = ev
 
-  object syntax {
-    implicit final class QueueOps[Q[_], A](queue: Q[A])(implicit ev: Queue[Q]) {
-      def head: Option[A] = ev.head(queue)
-      def tail: Option[Q[A]] = ev.tail(queue)
-      def snoc(a: A): Q[A] = ev.snoc(queue, a)
-      def isEmpty: Boolean = ev.isEmpty(queue)
-    }
-  }
-
-  def getAllItems[Q[_]: Queue, A](queue: Q[A]): List[A] = {
-    import syntax._
-
+  def toList[Q[_]: Queue, A](queue: Q[A]): List[A] = {
     @tailrec
     def go(queue: Q[A], acc: List[A]): List[A] =
       (queue.head, queue.tail) match {

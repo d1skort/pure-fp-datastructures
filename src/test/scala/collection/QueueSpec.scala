@@ -1,6 +1,6 @@
 package collection
 
-import collection.Queue.syntax._
+import collection.syntax._
 import org.scalacheck.Prop
 import org.scalatest.{ Matchers, WordSpec }
 import org.scalatestplus.scalacheck.Checkers
@@ -15,7 +15,7 @@ class QueueSpec extends WordSpec with Matchers with Checkers {
         case (q, i) =>
           q.snoc(i)
       }
-      Queue.getAllItems(queue) === list
+      Queue.toList(queue) === list
     })
 
   "queue" when {
