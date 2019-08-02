@@ -47,17 +47,23 @@ class HeapSpec extends WordSpec with Checkers {
       "return correct min for SplayHeap" in {
         testFindMin[SplayHeap]
       }
+      "return correct min for PairingHeap" in {
+        testFindMin[PairingHeap]
+      }
       "return correct min for ExplicitMinHeap for LeftistHeap" in {
-        testFindMin[ExplicitMinHeap[LeftistHeap, ?]]
+        testFindMin[ExplicitMinHeap[LeftistHeap, *]]
       }
       "return correct min for ExplicitMinHeap for WeightBiasedLeftistHeap" in {
-        testFindMin[ExplicitMinHeap[WeightBiasedLeftistHeap, ?]]
+        testFindMin[ExplicitMinHeap[WeightBiasedLeftistHeap, *]]
       }
       "return correct min for ExplicitMinHeap for BinomialHeap" in {
-        testFindMin[ExplicitMinHeap[BinomialHeap, ?]]
+        testFindMin[ExplicitMinHeap[BinomialHeap, *]]
       }
       "return correct min for ExplicitMinHeap for SplayHeap" in {
-        testFindMin[ExplicitMinHeap[SplayHeap, ?]]
+        testFindMin[ExplicitMinHeap[SplayHeap, *]]
+      }
+      "return correct min for ExplicitMinHeap for PairingHeap" in {
+        testFindMin[ExplicitMinHeap[PairingHeap, *]]
       }
     }
 
@@ -74,17 +80,23 @@ class HeapSpec extends WordSpec with Checkers {
       "correct insert new item for SplayHeap" in {
         testInsertNewItem[SplayHeap]
       }
+      "correct insert new item for PairingHeap" in {
+        testInsertNewItem[PairingHeap]
+      }
       "correct insert new item for ExplicitMinHeap for LeftistHeap" in {
-        testInsertNewItem[ExplicitMinHeap[LeftistHeap, ?]]
+        testInsertNewItem[ExplicitMinHeap[LeftistHeap, *]]
       }
       "correct insert new item for ExplicitMinHeap for WeightBiasedLeftistHeap" in {
-        testInsertNewItem[ExplicitMinHeap[WeightBiasedLeftistHeap, ?]]
+        testInsertNewItem[ExplicitMinHeap[WeightBiasedLeftistHeap, *]]
       }
       "correct insert new item for ExplicitMinHeap for BinomialHeap" in {
-        testInsertNewItem[ExplicitMinHeap[BinomialHeap, ?]]
+        testInsertNewItem[ExplicitMinHeap[BinomialHeap, *]]
       }
       "correct insert new item for ExplicitMinHeap for SplayHeap" in {
-        testInsertNewItem[ExplicitMinHeap[SplayHeap, ?]]
+        testInsertNewItem[ExplicitMinHeap[SplayHeap, *]]
+      }
+      "correct insert new item for ExplicitMinHeap for PairingHeap" in {
+        testInsertNewItem[ExplicitMinHeap[PairingHeap, *]]
       }
     }
 
@@ -101,17 +113,23 @@ class HeapSpec extends WordSpec with Checkers {
       "correct delete min for SplayHeap" in {
         testDeleteMin[SplayHeap]
       }
+      "correct delete min for PairingHeap" in {
+        testDeleteMin[PairingHeap]
+      }
       "correct delete min for ExplicitMinHeap for LeftistHeap" in {
-        testDeleteMin[ExplicitMinHeap[LeftistHeap, ?]]
+        testDeleteMin[ExplicitMinHeap[LeftistHeap, *]]
       }
       "correct delete min for ExplicitMinHeap for WeightBiasedLeftistHeap" in {
-        testDeleteMin[ExplicitMinHeap[WeightBiasedLeftistHeap, ?]]
+        testDeleteMin[ExplicitMinHeap[WeightBiasedLeftistHeap, *]]
       }
       "correct delete min for ExplicitMinHeap for BinomialHeap" in {
-        testDeleteMin[ExplicitMinHeap[BinomialHeap, ?]]
+        testDeleteMin[ExplicitMinHeap[BinomialHeap, *]]
       }
       "correct delete min for ExplicitMinHeap for SplayHeap" in {
-        testDeleteMin[ExplicitMinHeap[SplayHeap, ?]]
+        testDeleteMin[ExplicitMinHeap[SplayHeap, *]]
+      }
+      "correct delete min for ExplicitMinHeap for PairingHeap" in {
+        testDeleteMin[ExplicitMinHeap[PairingHeap, *]]
       }
     }
 
@@ -128,17 +146,23 @@ class HeapSpec extends WordSpec with Checkers {
       "correct sort via SplayHeap" in {
         testSortViaHeap[SplayHeap]
       }
+      "correct sort via PairingHeap" in {
+        testSortViaHeap[PairingHeap]
+      }
       "correct sort via ExplicitMinHeap for LeftistHeap" in {
-        testSortViaHeap[ExplicitMinHeap[LeftistHeap, ?]]
+        testSortViaHeap[ExplicitMinHeap[LeftistHeap, *]]
       }
       "correct sort via ExplicitMinHeap for WeightBiasedLeftistHeap" in {
-        testSortViaHeap[ExplicitMinHeap[WeightBiasedLeftistHeap, ?]]
+        testSortViaHeap[ExplicitMinHeap[WeightBiasedLeftistHeap, *]]
       }
       "correct sort via ExplicitMinHeap for BinomialHeap" in {
-        testSortViaHeap[ExplicitMinHeap[BinomialHeap, ?]]
+        testSortViaHeap[ExplicitMinHeap[BinomialHeap, *]]
       }
       "correct sort via ExplicitMinHeap for SplayHeap" in {
-        testSortViaHeap[ExplicitMinHeap[SplayHeap, ?]]
+        testSortViaHeap[ExplicitMinHeap[SplayHeap, *]]
+      }
+      "correct sort via ExplicitMinHeap for PairingHeap" in {
+        testSortViaHeap[ExplicitMinHeap[PairingHeap, *]]
       }
     }
   }
